@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container" style="width: 800px;">
+        <form>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <input type="password" class="form-control" id="inputPassword">
+            </div>
+         
+            <button type="login" class="btn btn-primary">Login</button>
+            <button type="register" class="btn btn-light" id="register">Register</button>
+          </form>
+    </div>
+   
+
+
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script>
+        let token ="";
+        let email = document.getElementById("inputEmail").value;
+        let password = document.getElementById("inputPassword").value;
+        function signUp(){
+            axios.post("http://localhost:3000/signup",{
+                
+                "email": email,
+                "password": password
+                // "email":"test@gmail.com",
+                // "password":"123456"
+                // if(email !="" || passworld != ""){
+                // "email": email,
+                // "password": password
+                    
+                // }else {
+                //       alear("email or password is null")
+                //     }
+                
+
+            })
+            .then(function(response){
+                console.log(response.data)
+            })
+            .catch(function(error){
+                console.log(error.response)
+            })
+        }
+        function login(){
+            axios.post("http://localhost:3000/login",{
+                "email":"test@gmail.com",
+                "password":"123456"
+
+            })
+            .then(function(response){
+                token = response.data.accessToken
+            })
+            .catch(function(error){
+                console.log(error.response)
+            })
+        }
+
+        function updatePassword(){
+            axios.patch("http://localhost:3000/users/1",{
+                "password":"245678"
+            })
+            // ,{
+            //     headers:{
+            //         "authorization": `Bearer ${token}`
+            //     }
+            // }
+            .then(function(response){
+                console.log(response.data)
+            })
+            .catch(function(error){
+                console.log(error.response)
+            })
+        }
+
+        document.getElementById("register").addEventListener("click",register);
+   
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+</body>
+</html>
